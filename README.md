@@ -1,3 +1,9 @@
+---
+title: README.md
+date: 2020-02-10 19:15:14
+output: word_document
+---
+
 To perform the analysis of the files, i dealed with each part separately: test and train
 
 firstable, i loaded the features and activity label as part of global dataframe to append later on both test and train dataframe.
