@@ -39,8 +39,11 @@ dffinal <- rbind(dftest, dftrain)
 df_mean_std <- dffinal %>% select(matches("(SubjectID|Activity|.mean.|.std.)", ignore.case = FALSE))
 
 library(stringr)
+
+#Last dataframe set
 df_mean_std <- df_mean_std %>% rename_all(funs(str_remove_all(., "\\(\\)")))
 
+#Summarize variable mean
 cdf <- df_mean_std %>% group_by(Activity, SubjectID) %>% summarise_all(funs(mean))
 
 
