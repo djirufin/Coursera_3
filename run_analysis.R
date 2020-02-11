@@ -29,9 +29,9 @@ sub_train <- read.table(paste(folder_list[[2]], '/subject_', folder_list[[2]], '
 colnames(x_train) <- features$V2
 colnames(sub_train) <- "SubjectID"
 x_train <- cbind(y_train, sub_train, x_train)
-act_y_train <- merge(x_train, activity_label, by="V2", all = TRUE, sort = FALSE)
+act_y_train <- merge(x_train, activity_label, by="V1", all = TRUE, sort = FALSE)
 act_y_train <- act_y_train[, !duplicated(colnames(act_y_train))]
-dftrain <- act_y_train %>% rename("Activity" = V2) %>% select(SubjectID, Activity, everything()) %>%select(-V2)
+dftrain <- act_y_train %>% rename("Activity" = V2) %>% select(SubjectID, Activity, everything()) %>%select(-V1)
 
 
 dffinal <- rbind(dftest, dftrain)
@@ -45,5 +45,8 @@ df_mean_std <- df_mean_std %>% rename_all(funs(str_remove_all(., "\\(\\)")))
 
 #Summarize variable mean
 cdf <- df_mean_std %>% group_by(Activity, SubjectID) %>% summarise_all(funs(mean))
+
+write.table(cdf, "summary_mean.txt")
+
 
 
